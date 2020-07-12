@@ -1,2 +1,2 @@
-# analysis-app
-An app for comprehensive analyses
+# analysis-api
+Django RESTful API for comprehensive analyses application
