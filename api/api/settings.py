@@ -25,6 +25,7 @@ SECRET_KEY = 'c1o%r8%4+f7#5+q+$$yhewpj&n6iy3m!2xmd*ymwrtlq-a^rjv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+APPNAME = 'datasc'
 ALLOWED_HOSTS = []
 
 
@@ -37,17 +38,39 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gate', # django main app
+    'rest_framework', # django restframework api
+    'django_filters', # django filter framework api
+    'corsheaders', ## XMLHTML permission setting
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', ## XMLHTML permission setting
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', ## XMLHTML permission setting
 ]
+
+## XMLHTML permission setting
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8000',
+)
 
 ROOT_URLCONF = 'api.urls'
 
@@ -73,10 +96,15 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# postgresql database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': APPNAME,
+        'USER': 'django',
+        'PASSWORD': 'alan1202',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
