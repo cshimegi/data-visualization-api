@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from . import models
-import hashlib
+from django.contrib.auth.hashers import make_password
 
 class UserLogSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,4 +16,18 @@ class UserSerializer(serializers.ModelSerializer):
         }
     
     def create(self, validated_data):
+        password = validated_data.get('password', None)
+        
+        if password is not None:
+            validated_data['password'] = make_password(password)
+        
         return super().create(validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.password = make_password(validated_data.get('password', instance.password))
+        instance.save()
+
+        return instance
+
+
+
