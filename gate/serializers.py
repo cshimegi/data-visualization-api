@@ -1,18 +1,19 @@
 from rest_framework import serializers
 from . import models
 from django.contrib.auth.hashers import make_password
+import json
 
 class UserLogSerializer(serializers.ModelSerializer):
     class Meta:
         model  = models.UserLog
-        fields = ('user', 'logged_time')
+        fields = ('__all__')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model  = models.User
         fields = ('id', 'name', 'email', 'password', 'authority')
         extra_kwargs = {
-            'password'   : {'write_only': True}
+            'password'   : {'write_only': True, 'required': False}
         }
     
     def create(self, validated_data):
@@ -20,14 +21,18 @@ class UserSerializer(serializers.ModelSerializer):
         
         if password is not None:
             validated_data['password'] = make_password(password)
+        else:
+            detail = {"password": ["This field may not be blank."]}
+            raise serializers.ValidationError(detail=detail)
         
         return super().create(validated_data)
     
     def update(self, instance, validated_data):
-        instance.password = make_password(validated_data.get('password', instance.password))
-        instance.save()
+        password = validated_data.get('password', None)
+        
+        validated_data['password'] = instance.password if password is None else make_password(password)
 
-        return instance
+        return super().update(instance, validated_data)
 
 
 
