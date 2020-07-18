@@ -3,4 +3,4 @@ from gate import view_sets
 
 # Register api routes here
 router = routers.DefaultRouter()
-router.register(r'user', view_sets.UserLogViewSet)
+router.register(r'user', view_sets.UserViewSet)

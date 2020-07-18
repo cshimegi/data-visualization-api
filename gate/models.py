@@ -34,7 +34,7 @@ class User(models.Model):
 
 class UserLog(models.Model):
     # properties
-    user        = models.ForeignKey(User, on_delete=models.CASCADE)
+    user        = models.ForeignKey(User, to_field='id' ,on_delete=models.CASCADE, related_name="user_id")
     logged_time = UnixTimeStampField(db_index=True, auto_now_add=True)
 
     # indexes
