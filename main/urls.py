@@ -20,4 +20,6 @@ from .api_routers import router
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)), # include api url pattern here
+    # path('rest/auth/', include('rest_auth.urls')),
+    # path('rest/auth/registration', include('rest_auth.registration.urls')),
 ]
