@@ -22,10 +22,10 @@ class User(models.Model):
     )
     email        = models.EmailField(unique=True, validators=[validate_email])
     password     = models.CharField(
-        max_length=64,
+        max_length=512,
         validators=[
             MinLengthValidator(8),
-            MaxLengthValidator(64)
+            MaxLengthValidator(512)
         ]
     )
     authority    = models.SmallIntegerField(choices=USER_AUTH, default=GENERAL)
