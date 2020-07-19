@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         model  = models.User
         fields = ('id', 'name', 'email', 'password', 'authority')
         extra_kwargs = {
-            'password'   : {'write_only': True, 'required': False}
+            'password'   : {'write_only': True}
         }
     
     def create(self, validated_data):
@@ -21,16 +21,14 @@ class UserSerializer(serializers.ModelSerializer):
         
         if password is not None:
             validated_data['password'] = make_password(password)
-        else:
-            detail = {"password": ["This field may not be blank."]}
-            raise serializers.ValidationError(detail=detail)
         
         return super().create(validated_data)
     
     def update(self, instance, validated_data):
         password = validated_data.get('password', None)
         
-        validated_data['password'] = instance.password if password is None else make_password(password)
+        if password is not None:
+            validated_data['password'] = make_password(password)
 
         return super().update(instance, validated_data)
 
