@@ -26,7 +26,10 @@ SECRET_KEY = 'c1o%r8%4+f7#5+q+$$yhewpj&n6iy3m!2xmd*ymwrtlq-a^rjv'
 DEBUG = True
 
 APPNAME = 'datasc'
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -46,7 +49,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth',
-    'rest_auth.registration'
+    'rest_auth.registration',
+    'corsheaders', # allow cors
 ]
 
 REST_FRAMEWORK = {
@@ -63,7 +67,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny'
     ]
 }
 
@@ -76,6 +81,8 @@ PASSWORD_HASHERS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', # allow cors
+    'corsheaders.middleware.CorsMiddleware', # allow cors
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -83,6 +90,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOW_CREDENTIALS = True # allow cors
+# CORS_ORIGIN_ALLOW_ALL  = True # allow cors
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:4200',
+    'http://localhost:8000',
+]
 
 ROOT_URLCONF = 'main.urls'
 
