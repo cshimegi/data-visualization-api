@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework.generics import CreateAPIView
-from rest_framework.response import Response
+from django.http import JsonResponse, HttpResponseBadRequest
 from rest_framework.views import APIView
 from rest_framework import status
  
@@ -14,37 +14,29 @@ class UserLoginView(APIView):
     '''
     authentication_classes = []
     # Login does not require authentication
-    def post(self, request) -> Response:
-        name = request.POST.get('name').strip()
-        password = request.POST.get('password').strip()
+    def post(self, request):
+        name = request.data.get('name').strip()
+        password = request.data.get('password').strip()
         
         if not all([name, password]):
-            return Response({
-                'info': 'User name and password are required!',
-                'code': status.HTTP_400_BAD_REQUEST
-            })
+            return HttpResponseBadRequest('User name and password are required!')
+        
+        if not models.User.objects.filter(name = name).exists():
+            return HttpResponseBadRequest('User name is not existed!')
         
         user = models.User.objects.get(name = name)
 
         if not user.do_check_password(password):
-            return Response({
-                'error': 'The user is not existed!',
-                'code': status.HTTP_401_UNAUTHORIZED
-            })
+            return HttpResponseBadRequest('Password is wrong!')
         
         # Generate a token after successful login
         token = 'adasdsadasdas'
 
-        # models.UserToken.objects.update_or_create(user=user,defaults={'token':token})
-        # result = {'info':'success', 'token':token, 'code':200}
-        # result['data'] = ser.UserInfoSer(user).data
-        
-        return Response({
-            'info': 'Success',
-            'token': token,
-            'code': status.HTTP_200_OK,
-            'data': serializers.UserSerializer(user).data
-        })
+        # Todo: models.UserToken.objects.update_or_create(user=user,defaults={'token':token})
+        result = serializers.UserSerializer(user).data
+        result['token'] = token
+
+        return JsonResponse({'code': status.HTTP_200_OK, 'user': result})
 
 class UserRegisterView(CreateAPIView):
     '''User Registration View
