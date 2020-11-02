@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .api_routers import router
+from gate import views
 
+api_v1_base_path = 'api/v1/'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include(router.urls)), # include api url pattern here
-    # path('rest/auth/', include('rest_auth.urls')),
-    # path('rest/auth/registration', include('rest_auth.registration.urls')),
+    path(api_v1_base_path, include(router.urls)), # include api url pattern here
+    path(api_v1_base_path + 'user/login', views.UserLoginView.as_view(), name='user-login'),
+    path(api_v1_base_path + 'user/register', views.UserRegisterView.as_view(), name='user-register')
 ]
