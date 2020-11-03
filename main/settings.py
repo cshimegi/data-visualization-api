@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gate', # django main app
+    'gate', # django main app,
+    'common',
     'rest_framework', # django restframework api
     'django_filters', # django filter framework api
     'django.contrib.sites',

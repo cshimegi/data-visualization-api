@@ -3,6 +3,7 @@ from django.core.validators import (validate_email, validate_slug,
     MinLengthValidator, MaxLengthValidator)
 from unixtimestampfield.fields import UnixTimeStampField
 from django.contrib.auth.hashers import make_password, check_password
+from common.managers import ModelManager
 
 # Create your models here.
 class User(models.Model):
@@ -35,6 +36,7 @@ class User(models.Model):
     authority    = models.SmallIntegerField(choices = USER_AUTH, default = GENERAL)
     updated_time = UnixTimeStampField(auto_now_add = True)
     created_time = UnixTimeStampField(auto_now = True)
+    objects = ModelManager()
 
     class Meta:
         verbose_name = 'user information table'
