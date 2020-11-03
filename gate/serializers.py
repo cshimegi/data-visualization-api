@@ -24,9 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
             extra_kwargs = {
                 'password': {'write_only': True}
             }
-    
 
-        
 class CreateUserSerializer(serializers.ModelSerializer):
     ''' Create User Serializer
     
@@ -44,15 +42,26 @@ class CreateUserSerializer(serializers.ModelSerializer):
         
         return attrs
     
-    def __validate_password(self, password, confirmed_password) -> bool:
-        ''' validate if plain password matches
+    def __validate_password(self, password: str, confirmed_password: str) -> bool:
+        '''Validate if plain password matches
         
+        Args:
+            password (str): user's password
+            confirmed_password (str): password for checking if password is desirable
+        
+        Returns:
+            The return value. True if same, False otherwise
         '''
         return password == confirmed_password
 
-    def __validate_email(self, email) -> None:
-        ''' validate email format
+    def __validate_email(self, email: str) -> None:
+        '''Validate email format
 
+        Args:
+            email (str): user's email
+        
+        Raises:
+            validate_email.ValidationError: if email is invalid format
         '''
         from django.core.validators import validate_email
         

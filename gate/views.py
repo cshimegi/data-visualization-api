@@ -17,17 +17,14 @@ class UserLoginView(APIView):
     def post(self, request):
         name = request.data.get('name').strip()
         password = request.data.get('password').strip()
-        
+
         if not all([name, password]):
             return HttpResponseBadRequest('User name and password are required!')
         
-        if not models.User.objects.filter(name = name).exists():
-            return HttpResponseBadRequest('User name is not existed!')
-        
-        user = models.User.objects.get(name = name)
+        user = models.User.objects.get_one_or_none(name = name)
 
-        if not user.do_check_password(password):
-            return HttpResponseBadRequest('Password is wrong!')
+        if not user or not user.do_check_password(password):
+            return HttpResponseBadRequest('User name or password is wrong!')
         
         # Generate a token after successful login
         token = 'adasdsadasdas'
