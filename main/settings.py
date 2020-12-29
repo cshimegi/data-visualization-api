@@ -28,7 +28,9 @@ DEBUG = True
 APPNAME = 'datasc'
 ALLOWED_HOSTS = [
     'localhost',
-    '127.0.0.1'
+    '127.0.0.1',
+    '192.168.33.10',
+    '192.168.12.2'
 ]
 
 
@@ -95,7 +97,9 @@ CORS_ALLOW_CREDENTIALS = True # allow cors
 # CORS_ORIGIN_ALLOW_ALL  = True # allow cors
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:4200',
-    'http://localhost:8000',
+    'http://localhost:8080',
+    'http://192.168.33.10:1299',
+    'http://192.168.12.2:8080'
 ]
 
 ROOT_URLCONF = 'main.urls'
@@ -127,8 +131,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': APPNAME,
-        'USER': 'django',
-        'PASSWORD': 'alan1202',
+        # 'USER': 'django',
+        'USER': 'vagrant',
+        # 'PASSWORD': 'alan1202',
+        'PASSWORD': 'vagrant',
         'HOST': 'localhost',
         'PORT': '5432',
     }
