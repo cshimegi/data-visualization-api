@@ -21,6 +21,7 @@ django-storages==1.9.1
 django-templated-mail==1.1.1
 django-unixtimestampfield==0.4.0
 djangorestframework==3.11.0
+djangorestframeworkjwt==1.11.0
 djoser==2.0.3
 easy-thumbnails==2.7
 factory-boy==2.12.0

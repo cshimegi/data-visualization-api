@@ -5,35 +5,18 @@ from rest_framework.generics import CreateAPIView
 from django.http import JsonResponse, HttpResponseBadRequest
 from rest_framework.views import APIView
 from rest_framework import status
- 
+from common.authentications import UserAuthentication
+
 from . import models, serializers
- 
+
 class UserLoginView(APIView):
     ''' User login view class
 
     '''
-    authentication_classes = []
+    authentication_classes = [UserAuthentication]
     # Login does not require authentication
     def post(self, request):
-        name = request.data.get('name').strip()
-        password = request.data.get('password').strip()
-
-        if not all([name, password]):
-            return HttpResponseBadRequest('User name and password are required!')
-        
-        user = models.User.objects.get_one_or_none(name = name)
-
-        if not user or not user.do_check_password(password):
-            return HttpResponseBadRequest('User name or password is wrong!')
-        
-        # Generate a token after successful login
-        token = 'adasdsadasdas'
-
-        # Todo: models.UserToken.objects.update_or_create(user=user,defaults={'token':token})
-        result = serializers.UserSerializer(user).data
-        result['token'] = token
-
-        return JsonResponse({'code': status.HTTP_200_OK, 'user': result})
+        return JsonResponse({'code': status.HTTP_200_OK, 'user': request.user})
 
 class UserRegisterView(CreateAPIView):
     '''User Registration View

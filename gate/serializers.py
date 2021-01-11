@@ -9,6 +9,20 @@ class UserLogSerializer(serializers.ModelSerializer):
         model  = models.UserLog
         fields = ('__all__')
 
+class CreateUserLogSerializer(serializers.ModelSerializer):
+    ''' User log information
+
+    '''
+    def create(self, data) -> dict:
+        user_log = super().create(data)
+        user_log.save()
+        
+        return user_log
+
+    class Meta:
+        model  = models.UserLog
+        fields = ('__all__')
+
 class UserSerializer(serializers.ModelSerializer):
     ''' User Information
 
@@ -18,7 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
         from django.conf import settings
 
         model  = models.User
-        fields = ('id', 'name', 'email', 'password', 'authority')
+        fields = ('id', 'username', 'email', 'password', 'authority')
 
         if not settings.DEBUG:
             extra_kwargs = {
@@ -70,8 +84,13 @@ class CreateUserSerializer(serializers.ModelSerializer):
         except validate_email.ValidationError:
             # ToDo: log system
             pass
- 
+
     def create(self, validated_data) -> dict:
+        '''Create user
+
+        Args:
+            validated_data (dict): validated user's required information
+        '''
         del validated_data['confirmed_password']
         
         user = super().create(validated_data)
@@ -87,6 +106,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
             max_length = models.User.MAX_PASSWORD_LENGTH,
             write_only = True
         )
-        fields = ('name', 'email', 'password', 'confirmed_password', 'authority')
+        fields = ('username', 'email', 'password', 'confirmed_password', 'authority')
 
 

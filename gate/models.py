@@ -20,7 +20,7 @@ class User(models.Model):
     PASSWORD_SALT= 'alan-data-science-web-app'
 
     # properties
-    name         = models.CharField(
+    username       = models.CharField(
         max_length = MAX_NAME_LENGTH,
         unique = True,
         validators = [validate_slug]
@@ -53,7 +53,7 @@ class User(models.Model):
 
 class UserLog(models.Model):
     # constants
-    MAX_TOKEN_LENGTH = 64
+    MAX_TOKEN_LENGTH = 512
 
     # properties
     user        = models.ForeignKey(User, to_field = 'id', on_delete = models.CASCADE, related_name = "user_id")
