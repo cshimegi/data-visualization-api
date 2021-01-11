@@ -18,10 +18,10 @@ from django.urls import path, include
 from .api_routers import router
 from gate import views
 
-api_v1_base_path = 'api/v1/'
+API_V1_BASE_PATH = 'api/v1/'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(api_v1_base_path, include(router.urls)), # include api url pattern here
-    path(api_v1_base_path + 'user/login', views.UserLoginView.as_view(), name='user-login'),
-    path(api_v1_base_path + 'user/register', views.UserRegisterView.as_view(), name='user-register')
+    path(API_V1_BASE_PATH, include(router.urls)), # include api url pattern here
+    path(API_V1_BASE_PATH + 'user/login', views.UserLoginView.as_view(), name='user-login'),
+    path(API_V1_BASE_PATH + 'user/register', views.UserRegisterView.as_view(), name='user-register')
 ]

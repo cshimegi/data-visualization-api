@@ -65,9 +65,7 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication'
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.IsAuthenticated',
@@ -94,9 +92,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True # allow cors
-# CORS_ORIGIN_ALLOW_ALL  = True # allow cors
+CORS_ORIGIN_ALLOW_ALL  = True # allow cors
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:4200',
+    'http://localhost:1299',
     'http://localhost:8080',
     'http://192.168.33.10:1299',
     'http://192.168.12.2:8080'
@@ -132,8 +130,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': APPNAME,
         # 'USER': 'django',
-        'USER': 'vagrant',
         # 'PASSWORD': 'alan1202',
+        'USER': 'vagrant',
         'PASSWORD': 'vagrant',
         'HOST': 'localhost',
         'PORT': '5432',
@@ -178,3 +176,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# JWT authentication
+from datetime import timedelta
+
+JWT_AUTH = {
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': timedelta(seconds=86400),
+    'JWT_AUTH_HEADER_PREFIX': 'alan-data-sc',
+    'JWT_ENCODE_HANDLER': 'rest_framework_jwt.utils.jwt_encode_handler',
+    'JWT_DECODE_HANDLER': 'rest_framework_jwt.utils.jwt_decode_handler',
+    'JWT_PAYLOAD_HANDLER': 'rest_framework_jwt.utils.jwt_payload_handler',
+    'JWT_SECRET_KEY': 'SECRET_KEY',
+    'JWT_GET_USER_SECRET_KEY': None,
+    'JWT_PUBLIC_KEY': None,
+    'JWT_PRIVATE_KEY': None,
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_ALLOW_REFRESH': False,
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=1),
+    'JWT_AUTH_COOKIE': None,
+}
