@@ -27,7 +27,13 @@ class UserAuthentication(BaseAuthentication):
         token = JWT_ENCODE_HANDLER(payload)
 
         UserLog.objects.create(user = user, token = token)
-        user_data = {'id': user.id, 'name': user.username, 'authority': user.authority, 'token': token}
+        user_data = {
+            'id': user.id,
+            'name': user.username,
+            'email': user.email,
+            'authority': user.authority,
+            'token': token
+        }
 
         return (user_data, token)
     

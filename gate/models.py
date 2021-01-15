@@ -43,7 +43,7 @@ class User(models.Model):
         verbose_name_plural = verbose_name
     
     def __str__(self) -> str:
-        return user.name
+        return self.username
     
     def set_password(self, password) -> None:
         self.password = make_password(password, salt = self.PASSWORD_SALT)
