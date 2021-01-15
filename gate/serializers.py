@@ -1,28 +1,6 @@
 from rest_framework import serializers
 from . import models
 
-class UserLogSerializer(serializers.ModelSerializer):
-    ''' User log information
-
-    '''
-    class Meta:
-        model  = models.UserLog
-        fields = ('__all__')
-
-class CreateUserLogSerializer(serializers.ModelSerializer):
-    ''' User log information
-
-    '''
-    def create(self, data) -> dict:
-        user_log = super().create(data)
-        user_log.save()
-        
-        return user_log
-
-    class Meta:
-        model  = models.UserLog
-        fields = ('__all__')
-
 class UserSerializer(serializers.ModelSerializer):
     ''' User Information
 
@@ -108,4 +86,34 @@ class CreateUserSerializer(serializers.ModelSerializer):
         )
         fields = ('username', 'email', 'password', 'confirmed_password', 'authority')
 
+class PartialUserSerializer(serializers.ModelSerializer):
+    ''' Partial User Information
 
+    '''
+    class Meta:
+        model  = models.User
+        fields = ('id', 'username', 'email', 'authority')
+
+class UserLogSerializer(serializers.ModelSerializer):
+    ''' User log information
+
+    '''
+    user = PartialUserSerializer(read_only=True) # get joining table's data
+
+    class Meta:
+        model  = models.UserLog
+        fields = ('id', 'user', 'logged_time')
+
+class CreateUserLogSerializer(serializers.ModelSerializer):
+    ''' User log information
+
+    '''
+    def create(self, data) -> dict:
+        user_log = super().create(data)
+        user_log.save()
+        
+        return user_log
+
+    class Meta:
+        model  = models.UserLog
+        fields = ('__all__')
