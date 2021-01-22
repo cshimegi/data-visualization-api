@@ -3,7 +3,7 @@ from django.core.validators import (validate_email, validate_slug,
     MinLengthValidator, MaxLengthValidator)
 from unixtimestampfield.fields import UnixTimeStampField
 from django.contrib.auth.hashers import make_password, check_password
-from common.managers import ModelManager
+from .managers import ModelManager
 
 # Create your models here.
 class User(models.Model):
