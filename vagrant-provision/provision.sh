@@ -3,6 +3,11 @@ sudo apt-get update
 sudo apt install net-tools
 echo "====================End of Updating apt-get========================="
 
+echo "==================Install Apache================================"
+sudo apt install -y apache2 apache2-dev
+sudo apt install libapache2-mod-wsgi-py3
+echo "====================End of Apache========================="
+
 # Install postgresql
 echo "==================Install Postgresql================================"
 sudo apt -y install postgresql-12
