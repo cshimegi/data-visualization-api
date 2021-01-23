@@ -17,33 +17,32 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "bento/ubuntu-20.10"
 
-  # speed up apt-get
-  # config.cache.auto_detect = true
-
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
   # config.vm.box_check_update = false
+
+  # Connect ip address to host name
+  # config.vagrant.plugins = ["vagrant-hostsupdater"]
+
+  # Host name
+  # config.vm.hostname = "cshimegi.com"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
   # config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.network "forwarded_port", guest: 8080, host: 9912
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
-  # config.vm.network "forwarded_port", guest: 8080, host: 9912, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 8080, host: 9912, host_ip: "192.168.12.2"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
   config.vm.network "private_network", ip: "192.168.12.2"
-  
-  # Host name
-  config.vm.hostname = "cshimegi.data.science"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
