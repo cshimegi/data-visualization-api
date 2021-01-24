@@ -3,3 +3,6 @@
 
 # vagrant machine
 .vagrant/*
+
+# python collected static files
+static/*
