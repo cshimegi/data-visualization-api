@@ -1,2 +1,5 @@
 # cache folder
 /**/__pycache__
+
+# vagrant machine
+.vagrant/*
