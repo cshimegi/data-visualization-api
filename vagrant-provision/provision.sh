@@ -3,11 +3,6 @@ sudo apt-get update
 sudo apt install net-tools
 echo "====================End of Updating apt-get========================="
 
-echo "==================Install Apache================================"
-sudo apt install -y apache2 apache2-dev
-sudo apt install libapache2-mod-wsgi-py3
-echo "====================End of Apache========================="
-
 # Install postgresql
 echo "==================Install Postgresql================================"
 sudo apt -y install postgresql-12
@@ -20,6 +15,20 @@ echo "==================Install Python================================"
 # Install pip3, virtualenv
 sudo apt -y install python3.8 python3-pip python3-venv
 echo "====================End of Python Installation========================="
+
+echo "==================Install Apache================================"
+sudo apt install -y apache2
+sudo apt install libapache2-mod-wsgi-py3
+sudo pip3 install mod_wsgi==4.7.1
+sudo a2enmod wsgi
+sudo cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.orig
+sudo cp /vagrant/vagrant-provision/apache2.conf /etc/apache2/apache2.conf.orig
+sudo cp /vagrant/vagrant-provision/django.conf /etc/apache2/sites-available/django.conf
+sudo cp /vagrant/vagrant-provision/ports.conf /etc/apache2/ports.conf
+sudo a2dissite 000-default
+sudo a2ensite django
+sudo systemctl restart apache2
+echo "====================End of Apache========================="
 
 echo "==================Create Python Virtual Env================================"
 # create virtual python env
@@ -34,6 +43,8 @@ sudo pip3 install -r /vagrant/requirements.txt
 echo "==================End of Installing Required Python Packages======================"
 
 echo "==================Django Migration Start======================"
+sudo python3 /vagrant/manage.py makemigrations
 sudo python3 /vagrant/manage.py migrate
+sudo python3 /vagrant/manage.py collectstatic -c --no-input
 deactivate
 echo "==================Django Migration End======================"
