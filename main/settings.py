@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'c1o%r8%4+f7#5+q+$$yhewpj&n6iy3m!2xmd*ymwrtlq-a^rjv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 APPNAME = 'datasc'
 ALLOWED_HOSTS = [
@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gate', # django main app,
+    'gate', # main app
+    'crypto', # crypto app
     'common',
     'rest_framework', # django restframework api
     'django_filters', # django filter framework api
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_auth.registration',
     'corsheaders', # allow cors
+    'django_crontab',
 ]
 
 REST_FRAMEWORK = {
@@ -176,10 +178,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static', 'datasc')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static', APPNAME)]
 
 # JWT authentication
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 JWT_AUTH = {
     'JWT_VERIFY': True,
@@ -199,4 +201,53 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': False,
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=1),
     'JWT_AUTH_COOKIE': None,
+}
+
+LOG_ROOT = os.path.join(STATIC_ROOT, APPNAME, 'logs')
+TODAY = datetime.now().strftime("%Y-%m-%d")
+CRONJOB_LOG_FILE = os.path.join(LOG_ROOT, 'vechain_cron.log')
+
+CRONJOBS = [
+    ('1 * * * *', 'crypto.crons.collect_vechain_candle', '>> {}'.format(CRONJOB_LOG_FILE) ) # per minute
+]
+
+LOG_FILE = TODAY + '-debug.log' if DEBUG else TODAY + '-error.log'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} [{levelname}] {filename} => {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file_handler': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOG_ROOT, LOG_FILE),
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': { # add created apps here to output logs
+        'django': { # django system itself
+            'handlers': ['file_handler'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        'gate': {
+            'handlers': ['file_handler'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        'crypto': {
+            'handlers': ['file_handler'],
+            'level': 'INFO',
+            'propagate': False,
+        }
+    },
 }
