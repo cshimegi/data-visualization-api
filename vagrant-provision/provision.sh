@@ -30,6 +30,10 @@ sudo a2ensite django
 sudo systemctl restart apache2
 echo "====================End of Apache========================="
 
+echo "==================Install Cron================================"
+sudo apt install cron
+echo "====================End of Cron Installation========================="
+
 echo "==================Create Python Virtual Env================================"
 # create virtual python env
 sudo python3 -m venv /env38
