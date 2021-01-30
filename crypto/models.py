@@ -33,3 +33,4 @@ class VechainCandle(ICandle):
         indexes = [
             models.Index(fields = ['period'], name = "idx_vechain_candle_period"),
         ]
+        ordering = ['-period']
