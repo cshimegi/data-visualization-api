@@ -1,11 +1,14 @@
 from rest_framework import viewsets
-from . import models
-from . import serializers
+from .models import User, UserLog
+from .serializers import UserSerializer, UserLogSerializer
+from .paginations import UserPagination, UserLogPagination
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = models.User.objects.all()
-    serializer_class = serializers.UserSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    pagination_class = UserPagination
 
 class UserLogViewSet(viewsets.ModelViewSet):
-    queryset = models.UserLog.objects.all()
-    serializer_class = serializers.UserLogSerializer
+    queryset = UserLog.objects.all()
+    serializer_class = UserLogSerializer
+    pagination_class = UserLogPagination

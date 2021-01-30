@@ -41,6 +41,7 @@ class User(models.Model):
     class Meta:
         verbose_name = 'user information table'
         verbose_name_plural = verbose_name
+        ordering = ['-authority']
     
     def __str__(self) -> str:
         return self.username
@@ -67,3 +68,4 @@ class UserLog(models.Model):
         indexes = [
             models.Index(fields = ['logged_time'], name = "idx_user_log_logged_time"),
         ]
+        ordering = ['-logged_time']
