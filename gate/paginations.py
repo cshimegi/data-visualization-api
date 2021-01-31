@@ -23,4 +23,4 @@ class UserPagination(GateBasePagination):
     max_page_size = 9 # max page siz
 
 class UserLogPagination(GateBasePagination):
-    page_size = 10 # default page size
+    page_size = 9 # default page size

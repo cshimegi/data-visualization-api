@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'c1o%r8%4+f7#5+q+$$yhewpj&n6iy3m!2xmd*ymwrtlq-a^rjv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 APPNAME = 'datasc'
 ALLOWED_HOSTS = [
@@ -205,7 +205,7 @@ JWT_AUTH = {
 
 LOG_ROOT = os.path.join(STATIC_ROOT, APPNAME, 'logs')
 TODAY = datetime.now().strftime("%Y-%m-%d")
-CRONJOB_LOG_FILE = os.path.join(LOG_ROOT, 'vechain_cron.log')
+CRONJOB_LOG_FILE = os.path.join(LOG_ROOT, 'cron.log')
 
 CRONJOBS = [
     ('1 * * * *', 'crypto.crons.collect_vechain_candle', '>> {}'.format(CRONJOB_LOG_FILE) ) # per minute
