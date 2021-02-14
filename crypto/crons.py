@@ -39,7 +39,7 @@ def collect_vechain_candle():
         if data:
             for each in data:
                 for key, value in each.items():
-                    each[key] = float(value) if key != 'period' else int(value)//1000
+                    each[key] = float(value) if key != 'period' else int(value)
             
             serializer = BulkVechainCandleSerializer(data = data)
             

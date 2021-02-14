@@ -208,7 +208,7 @@ TODAY = datetime.now().strftime("%Y-%m-%d")
 CRONJOB_LOG_FILE = os.path.join(LOG_ROOT, 'cron.log')
 
 CRONJOBS = [
-    ('1 * * * *', 'crypto.crons.collect_vechain_candle', '>> {}'.format(CRONJOB_LOG_FILE) ) # per minute
+    ('0 0 * * *', 'crypto.crons.collect_vechain_candle', '>> {}'.format(CRONJOB_LOG_FILE) ) # per day
 ]
 
 LOG_FILE = TODAY + '-debug.log' if DEBUG else TODAY + '-error.log'
