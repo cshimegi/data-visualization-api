@@ -30,8 +30,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
         if not self.__validate_password(attrs['password'], attrs['confirmed_password']):
             raise serializers.ValidationError('The two passwords are inconsistent, please re-enter!')
         
-        self.__validate_email(attrs['email'])
-        
         return attrs
     
     def __validate_password(self, password: str, confirmed_password: str) -> bool:
@@ -45,23 +43,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
             The return value. True if same, False otherwise
         '''
         return password == confirmed_password
-
-    def __validate_email(self, email: str) -> None:
-        '''Validate email format
-
-        Args:
-            email (str): user's email
-        
-        Raises:
-            validate_email.ValidationError: if email is invalid format
-        '''
-        from django.core.validators import validate_email
-        
-        try:
-            validate_email(email)
-        except validate_email.ValidationError:
-            # ToDo: log system
-            pass
 
     def create(self, validated_data) -> dict:
         '''Create user

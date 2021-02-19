@@ -1,4 +1,3 @@
-from gate.models import User
 from rest_framework.exceptions import ParseError, AuthenticationFailed
 from rest_framework.authentication import BaseAuthentication
 from rest_framework_jwt.settings import api_settings

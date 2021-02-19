@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gate', # main app
     'crypto', # crypto app
-    'common',
+    'schedule', # schedule app
+    'common', # some common method
     'rest_framework', # django restframework api
     'django_filters', # django filter framework api
     'django.contrib.sites',
