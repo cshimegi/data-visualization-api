@@ -10,14 +10,22 @@
 2. [Vagrant 2.2.14](https://www.vagrantup.com/downloads)
 
 ## Installation from scratch
-1. `git clone https://github.com/cshimegi/analysis-api.git`
+##### Notification
+If you want to install from scratch, please refer to branch **master**.
+If you just want to look what this App is, please refer to branch **built**.
 
-2.  ```bash
+##### Steps
+* Step 1
+`git clone https://github.com/cshimegi/analysis-api.git`
+
+* Step 2
+```bash
 $  cd /to/Vagrantfile/path
 $  vagrant up --provision
 ```
 
-3.  ```bash
+* Step 3
+```bash
 $  vagrant ssh
 $  sudo systemctl stop apache2
 $  source /env38/bin/activate
