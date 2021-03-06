@@ -8,11 +8,12 @@
 ## Requirements
 1. [Virtualbox 6.1.16](https://www.virtualbox.org/wiki/Downloads)
 2. [Vagrant 2.2.14](https://www.vagrantup.com/downloads)
+3. Use with **cshimegi/data-visualization-gui**
 
 ## Installation from scratch
 ##### Notification
 If you want to install from scratch, please refer to branch **master**.
-If you just want to look what this App is, please refer to branch **built**.
+If you just want to take a look at what this App is, please refer to branch **built**.
 
 ##### Steps
 * Step 1
@@ -28,6 +29,9 @@ $  vagrant up --provision
 ```bash
 $  vagrant ssh
 $  sudo systemctl stop apache2
+$  sudo mkdir /vagrant/static
+$  sudo mkdir /vagrant/static/datasc
+$  sudo mkdir /vagrant/static/datasc/logs
 $  source /env38/bin/activate
 $  sudo pip3 install -r /vagrant/requirements.txt
 $  sudo python3 /vagrant/manage.py makemigrations
