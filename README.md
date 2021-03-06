@@ -1,4 +1,4 @@
-# Analysis WEB App with Django RESTful API
+# Django RESTful API for data visualization web app
 * Python 3.8
 * Django 3.0.8
 * Apache 2
