@@ -23,6 +23,8 @@ echo "====================End of Apache========================="
 
 echo "==================Create directories================================"
 sudo mkdir /vagrant/logs
+sudo mkdir /vagrant/static
+sudo mkdir /vagrant/static/datasc
 echo "====================End of creation========================="
 
 echo "==================Process Apache Settings================================"

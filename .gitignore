@@ -6,3 +6,6 @@
 
 # python collected static files
 static/*
+
+# log files
+logs/*
