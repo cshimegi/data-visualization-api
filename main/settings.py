@@ -204,7 +204,7 @@ JWT_AUTH = {
     'JWT_AUTH_COOKIE': None,
 }
 
-LOG_ROOT = os.path.join(STATIC_ROOT, APPNAME, 'logs')
+LOG_ROOT = os.path.join(BASE_DIR, 'logs')
 TODAY = datetime.now().strftime("%Y-%m-%d")
 CRONJOB_LOG_FILE = os.path.join(LOG_ROOT, 'cron.log')
 
