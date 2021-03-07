@@ -33,9 +33,16 @@ $  sudo pip3 install -r /vagrant/requirements.txt
 $  sudo python3 /vagrant/manage.py makemigrations
 $  sudo python3 /vagrant/manage.py migrate
 $  sudo python3 /vagrant/manage.py collectstatic -c --no-input
+$  sudo python3 /vagrant/manage.py crontab add
+$  sudo python3 /vagrant/manage.py crontab run <cron job hash value>
+$  sudo python3 /vagrant/manage.py crontab show // ---> check if added or not
 $  deactivate
 $  sudo systemctl start apache2
 ```
+
+#### Reference for Crontab
+![](_docs/img/crontab.PNG)
+
 
 ## Access to Django WEB
 After Vagrant is booted, you can access API page from browser.
@@ -55,4 +62,7 @@ $  vagrant halt // to halt
 ```bash
 $  source /env38/bin/activate // activate virtual python3 env
 $ (env38) deactivate // deactivate virtual python3 env
+$ (env38) sudo python3 /vagrant/manage.py crontab add // add not registered crontab jobs
+$ (env38) sudo python3 /vagrant/manage.py crontab run <crontab job hash value> // run specified registered crontab job
+$ (env38) sudo python3 /vagrant/manage.py crontab show // list all added crontab jobs
 ```
