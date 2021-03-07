@@ -207,7 +207,7 @@ JWT_AUTH = {
 LOG_ROOT = os.path.join(BASE_DIR, 'logs')
 TODAY = datetime.now().strftime("%Y-%m-%d")
 CRONJOB_LOG_FILE = os.path.join(LOG_ROOT, 'cron.log')
-
+CRONTAB_LOCK_JOBS = True
 CRONJOBS = [
     ('0 0 * * *', 'crypto.crons.collect_vechain_candle', '>> {}'.format(CRONJOB_LOG_FILE) ) # per day
 ]
