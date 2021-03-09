@@ -7,30 +7,6 @@ from unixtimestampfield.fields import UnixTimeStampField
 class Calendar(models.Model):
     # constants
     MAX_LABEL_LENGTH = 64
-    BLACK  = 4
-    GREEN  = 3
-    ORANGE = 2
-    RED    = 1
-    TRIAGES = [
-        (BLACK, 'black'),
-        (GREEN, 'green'),
-        (ORANGE, 'orange'),
-        (RED, 'red')
-    ]
-    NO_REMIND = 0
-    TEN_MINS = 10
-    ONE_QUARTER = 15
-    HALF_HOUR = 30
-    THREE_QUARTERS = 45
-    ONE_HOUR = 60
-    REMIND_MINUTES = [
-        (NO_REMIND, 'No remind'),
-        (TEN_MINS, '10 minutes'),
-        (ONE_QUARTER, '15 minutes'),
-        (HALF_HOUR, '30 minutes'),
-        (THREE_QUARTERS, '45 minutes'),
-        (ONE_HOUR, '60 minutes')
-    ]
 
     # properties
     user = models.ForeignKey(
@@ -47,9 +23,9 @@ class Calendar(models.Model):
         ]
     )
     detail         = models.TextField(blank = True, null = True)
-    triage         = models.SmallIntegerField(default = BLACK, choices = TRIAGES)
+    triage         = models.SmallIntegerField()
     do_remind      = models.BooleanField(default = False)
-    remind_minutes = models.SmallIntegerField(default = NO_REMIND, choices = REMIND_MINUTES)
+    remind_minutes = models.SmallIntegerField()
     from_time      = UnixTimeStampField(use_numeric = True)
     to_time        = UnixTimeStampField(use_numeric = True)
     updated_time   = UnixTimeStampField(auto_now_add = True, use_numeric = True)
