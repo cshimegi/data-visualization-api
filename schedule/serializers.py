@@ -21,6 +21,16 @@ class CalendarSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Calendar
         fields = ('id', 'user', 'label', 'detail', 'triage', 'do_remind', 'remind_minutes', 'from_time', 'to_time')
+
+class CreateCalendarSerializer(serializers.ModelSerializer):
+    ''' User Calendar information
+
+    '''
+    user = serializers.PrimaryKeyRelatedField(queryset = User.objects.all())
+
+    class Meta:
+        model  = Calendar
+        fields = ('id', 'user', 'label', 'detail', 'triage', 'do_remind', 'remind_minutes', 'from_time', 'to_time')
     
     def validate_detail(self, value):
         if value:
