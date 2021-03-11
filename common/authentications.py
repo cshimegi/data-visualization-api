@@ -38,3 +38,23 @@ class UserAuthentication(BaseAuthentication):
     
     def authenticate_header(self, request):
         pass
+
+
+from rest_framework_jwt.utils import jwt_decode_handler
+JWT_AUTH_HEADER_PREFIX = 'Bearer'
+
+def get_user(request, is_user_obj = False):
+    ''' Get Uer model or user id by request headers
+    
+    Args:
+        request (http.HttpRequest)
+        is_user_obj (boolean) if true, return User model; else, return user id
+
+    Returns:
+        User model or user id
+    '''
+    index = len(JWT_AUTH_HEADER_PREFIX)
+    token = request.headers['Authorization'][index+1:]
+    token_user = jwt_decode_handler(token)
+
+    return token_user['user_id'] if not is_user_obj else User.objects.get_one_or_none(id = token_user['user_id'])

@@ -11,9 +11,8 @@ class Calendar(models.Model):
     # properties
     user = models.ForeignKey(
         User,
-        to_field = 'id',
         on_delete = models.CASCADE,
-        related_name = "calendar_user_id"
+        related_name = "calendars"
     )
     label = models.CharField(
         max_length = MAX_LABEL_LENGTH,

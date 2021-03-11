@@ -198,8 +198,9 @@ JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_ALLOW_REFRESH': False,
-    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=1),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(seconds=300),
     'JWT_AUTH_COOKIE': None,
+    'AUTH_USER_MODEL': 'gate.User'
 }
 
 LOG_ROOT = os.path.join(BASE_DIR, 'logs')
