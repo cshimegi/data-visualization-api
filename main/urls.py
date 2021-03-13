@@ -21,6 +21,7 @@ from gate import views
 API_V1_BASE_PATH = 'api/v1/'
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('admin/', include(router.urls)),
     path(API_V1_BASE_PATH, include(router.urls)), # include api url pattern here
     path(API_V1_BASE_PATH + 'user/login', views.UserLoginView.as_view(), name='user-login'),
     path(API_V1_BASE_PATH + 'user/register', views.UserRegisterView.as_view(), name='user-register')
