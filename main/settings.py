@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'c1o%r8%4+f7#5+q+$$yhewpj&n6iy3m!2xmd*ymwrtlq-a^rjv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 APPNAME = 'datasc'
 ALLOWED_HOSTS = [
@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
     '192.168.33.10',
     '192.168.12.2'
 ]
-
+SITE_ID = 1
 
 # Application definition
 
