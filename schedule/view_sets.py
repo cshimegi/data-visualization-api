@@ -25,6 +25,26 @@ class CalendarViewSet(viewsets.ModelViewSet):
             status = status.HTTP_200_OK,
             headers = headers
         )
+    
+    def list(self, request, *args, **kwargs):
+        ''' @override
+
+        '''
+        user_id = get_user(request)
+
+        if not user_id:
+            return Response(
+                None,
+                status = status.HTTP_401_UNAUTHORIZED
+            )
+
+        queryset = self.queryset.filter(user_id = user_id)
+        serializer = self.get_serializer(queryset, many=True)
+
+        return Response(
+            serializer.data,
+            status = status.HTTP_200_OK
+        )
 
     def get_serializer_class(self):
         ''' @override
