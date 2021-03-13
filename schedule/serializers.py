@@ -16,7 +16,7 @@ class CalendarSerializer(serializers.ModelSerializer):
     ''' User Calendar information
 
     '''
-    user = CalendarUserSerializer(read_only=True) # get joining table's data
+    user = CalendarUserSerializer(read_only = True) # get joining table's data
 
     class Meta:
         model  = Calendar
