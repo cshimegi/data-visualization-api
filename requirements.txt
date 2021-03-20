@@ -20,7 +20,7 @@ django-simple-history==2.11.0
 django-storages==1.9.1
 django-templated-mail==1.1.1
 django-unixtimestampfield==0.4.0
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 djoser==2.0.3
 easy-thumbnails==2.7
