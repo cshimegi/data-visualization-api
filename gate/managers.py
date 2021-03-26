@@ -1,6 +1,7 @@
 from django.db.models import Manager
+from django.contrib.auth.models import BaseUserManager
 
-class ModelManager(Manager):
+class ModelManager(BaseUserManager):
     '''
     Model manager interface
 
