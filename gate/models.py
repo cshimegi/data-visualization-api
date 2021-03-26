@@ -4,28 +4,16 @@ from django.core.validators import (validate_email, validate_slug,
 from unixtimestampfield.fields import UnixTimeStampField
 from django.contrib.auth.hashers import make_password, check_password
 from .managers import ModelManager
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-class User(models.Model):
+class User(AbstractUser):
     # constants
-    ADMIN     = 99
-    GENERAL   = 1
-    USER_AUTH = [
-        (ADMIN, 'admin'),
-        (GENERAL, 'general')
-    ]
-    MAX_NAME_LENGTH = 32
     MIN_PASSWORD_LENGTH = 8
     MAX_PASSWORD_LENGTH = 512
     PASSWORD_SALT= 'alan-data-science-web-app'
 
     # properties
-    username       = models.CharField(
-        max_length = MAX_NAME_LENGTH,
-        unique = True,
-        validators = [validate_slug]
-    )
-    email        = models.EmailField(unique = True, validators = [validate_email])
     password     = models.CharField(
         max_length = MAX_PASSWORD_LENGTH,
         validators = [
@@ -33,15 +21,12 @@ class User(models.Model):
             MaxLengthValidator(MAX_PASSWORD_LENGTH)
         ]
     )
-    authority    = models.SmallIntegerField(choices = USER_AUTH, default = GENERAL)
     updated_time = UnixTimeStampField(auto_now_add = True)
-    created_time = UnixTimeStampField(auto_now = True)
     objects = ModelManager()
 
     class Meta:
         verbose_name = 'user information table'
         verbose_name_plural = verbose_name
-        ordering = ['-authority']
     
     def __str__(self) -> str:
         return self.username
@@ -69,3 +54,6 @@ class UserLog(models.Model):
             models.Index(fields = ['logged_time'], name = "idx_user_log_logged_time"),
         ]
         ordering = ['-logged_time']
+    
+    def __str__(self) -> str:
+        return self.user.username

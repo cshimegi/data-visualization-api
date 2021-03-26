@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'c1o%r8%4+f7#5+q+$$yhewpj&n6iy3m!2xmd*ymwrtlq-a^rjv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 APPNAME = 'datasc'
 ALLOWED_HOSTS = [
@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     'corsheaders', # allow cors
     'django_crontab',
 ]
+
+AUTH_USER_MODEL = 'gate.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [

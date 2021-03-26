@@ -47,7 +47,8 @@ $  sudo systemctl start apache2
 ## Access to Django WEB
 After Vagrant is booted, you can access API page from browser.
 
-`http://192.168.12.2:8080/api/v1`
+* API Page: `http://192.168.12.2:8080/api/v1`
+* Admin Site: `http://192.168.12.2:8080/admin`
 
 ## Useful Commands
 ### Vagrant

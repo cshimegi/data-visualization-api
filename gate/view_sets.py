@@ -1,12 +1,22 @@
 from rest_framework import viewsets
 from .models import User, UserLog
-from .serializers import UserSerializer, UserLogSerializer
+from .serializers import (
+    UserSerializer,
+    UserLogSerializer,
+    CreateUserSerializer
+)
 from .paginations import UserPagination, UserLogPagination
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     pagination_class = UserPagination
+
+    def get_serializer_class(self):
+        ''' @override
+
+        '''
+        return CreateUserSerializer if self.action == 'create' else UserSerializer
 
 class UserLogViewSet(viewsets.ModelViewSet):
     queryset = UserLog.objects.all()
